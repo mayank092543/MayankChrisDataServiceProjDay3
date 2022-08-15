@@ -13,13 +13,13 @@ insert into EVENTS (EVENT_CODE, TITLE, DESCRIPTION ) VALUES ('TRN003', 'Angular 
 insert into EVENTS (EVENT_CODE, TITLE, DESCRIPTION ) VALUES ('RNR004', 'Rock n Roll Concert', 'BAH Employees Social Concert' );
 
 insert into REGISTRATIONS (EVENT_ID, CUSTOMER_ID, REGISTRATION_DATE, NOTES ) 
-values ( 1, 1, '2021-10-10 00:00:00.0', 'please email me the event details' );
+values ( 1, 1, '2022-10-10 00:00:00.0', 'please email me the event details' );
 
 insert into REGISTRATIONS (EVENT_ID, CUSTOMER_ID, REGISTRATION_DATE, NOTES ) 
-values ( 2, 2, '2021-10-11 00:00:00.0', 'looking for info on local hotels' );
+values ( 2, 2, '2022-10-11 00:00:00.0', 'looking for info on local hotels' );
 
 insert into REGISTRATIONS (EVENT_ID, CUSTOMER_ID, REGISTRATION_DATE, NOTES ) 
-values ( 3, 3, '2021-11-12 00:00:00.0', 'Please send logistics information' );
+values ( 3, 3, '2022-11-12 00:00:00.0', 'Please send logistics information' );
 
 insert into REGISTRATIONS (EVENT_ID, CUSTOMER_ID, REGISTRATION_DATE, NOTES ) 
-values ( 4, 6, '2021-11-12 00:00:00.0', 'Please send email confirmation' );
+values ( 4, 6, '2022-11-12 00:00:00.0', 'Please send email confirmation' );

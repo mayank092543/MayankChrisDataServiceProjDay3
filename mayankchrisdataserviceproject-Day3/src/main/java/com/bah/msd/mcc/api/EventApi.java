@@ -17,51 +17,49 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.bah.msd.mcc.domain.Customer;
-import com.bah.msd.mcc.repository.CustomersRepository;
+import com.bah.msd.mcc.domain.Event;
+import com.bah.msd.mcc.repository.EventRepository;
 
 @RestController
-@RequestMapping("/customers")
-public class CustomerApi {
+@RequestMapping("/events")
+public class EventApi {
 	
-	@Autowired
-	CustomersRepository repo;
+	@Autowired 
+	EventRepository repo;
 	
 	@GetMapping
-	public Iterable<Customer> getAll() {
+	public Iterable<Event> getAll() {
 		return repo.findAll();
 	}
 	
-	@GetMapping("/{customerId}")
-	public Optional<Customer> getCustomerById(@PathVariable("customerId") long id){
+	@GetMapping("/{eventId}")
+	public Optional<Event> getEventById(@PathVariable("eventId") long id){
 		return repo.findById(id);
 	}
 	
-	@PostMapping
-	public ResponseEntity<?> addCustomer(@RequestBody Customer newCustomer, UriComponentsBuilder uri){
-		if(newCustomer.getId() != 0 || newCustomer.getName() == null || newCustomer.getEmail() == null) {
+	@PostMapping 
+	public ResponseEntity<?> addEvent(@RequestBody Event newEvent, UriComponentsBuilder uri){
+		if(newEvent.getId() != 0 || newEvent.getCode() == null) {
 			return ResponseEntity.badRequest().build();
 		}
-		newCustomer = repo.save(newCustomer);
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newCustomer.getId()).toUri();
+		newEvent = repo.save(newEvent);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newEvent.getId()).toUri();
 		ResponseEntity<?> response = ResponseEntity.created(location).build();
 		return response;
-		}
+	}
 	
-	@PutMapping("/{customerId}")
-	public ResponseEntity<?> updateCustomer(@RequestBody Customer newCustomer, @PathVariable("customerId") long customerId){
-		if(newCustomer.getId() != customerId || newCustomer.getName() == null || newCustomer.getEmail() == null) {
+	@PutMapping("/{eventId}")
+	public ResponseEntity<?> putEvent(@RequestBody Event newEvent, @PathVariable("eventId") long eventId) {
+		if(newEvent.getId() != eventId || newEvent.getCode() == null) {
 			return ResponseEntity.badRequest().build();
 		}
-		
-		newCustomer = repo.save(newCustomer);
+		newEvent = repo.save(newEvent);
 		return ResponseEntity.ok().build();
 	}
 	
-	@DeleteMapping("/delete-customer/{customerId}")
-	public ResponseEntity<?> deleteCustomerById(@PathVariable("customerId") long id){
+	@DeleteMapping("/delete-event/{eventId}")
+	public ResponseEntity<?> deleteEventById(@PathVariable("eventId") long id){
 		repo.deleteById(id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 }
-

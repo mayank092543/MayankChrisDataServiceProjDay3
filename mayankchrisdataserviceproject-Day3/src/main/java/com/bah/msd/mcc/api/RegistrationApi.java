@@ -17,51 +17,50 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.bah.msd.mcc.domain.Customer;
-import com.bah.msd.mcc.repository.CustomersRepository;
+import com.bah.msd.mcc.domain.Registration;
+import com.bah.msd.mcc.repository.RegistrationRepository;
 
 @RestController
-@RequestMapping("/customers")
-public class CustomerApi {
+@RequestMapping("/registrations")
+public class RegistrationApi {
 	
 	@Autowired
-	CustomersRepository repo;
+	RegistrationRepository repo;
 	
 	@GetMapping
-	public Iterable<Customer> getAll() {
+	public Iterable<Registration> getAll() {
 		return repo.findAll();
 	}
 	
-	@GetMapping("/{customerId}")
-	public Optional<Customer> getCustomerById(@PathVariable("customerId") long id){
+	@GetMapping("/{registrationId}")
+	public Optional<Registration> getRegisrationById(@PathVariable("registrationId") long id) {
 		return repo.findById(id);
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> addCustomer(@RequestBody Customer newCustomer, UriComponentsBuilder uri){
-		if(newCustomer.getId() != 0 || newCustomer.getName() == null || newCustomer.getEmail() == null) {
+	public ResponseEntity<?> addRegistration(@RequestBody Registration newRegistration, UriComponentsBuilder uri) {
+		if(newRegistration.getId() != 0 || newRegistration.getCustomer_id() == null || newRegistration.getEvent_id() == null) {
 			return ResponseEntity.badRequest().build();
 		}
-		newCustomer = repo.save(newCustomer);
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newCustomer.getId()).toUri();
+		newRegistration = repo.save(newRegistration);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newRegistration.getId()).toUri();
 		ResponseEntity<?> response = ResponseEntity.created(location).build();
 		return response;
-		}
+	}
 	
-	@PutMapping("/{customerId}")
-	public ResponseEntity<?> updateCustomer(@RequestBody Customer newCustomer, @PathVariable("customerId") long customerId){
-		if(newCustomer.getId() != customerId || newCustomer.getName() == null || newCustomer.getEmail() == null) {
+	@PutMapping("/{registrationId}")
+	public ResponseEntity<?> updateRegistration(@RequestBody Registration newRegistration, @PathVariable("registrationId") long regisrationId){
+		if(newRegistration.getId() != regisrationId || newRegistration.getCustomer_id() == null || newRegistration.getEvent_id() == null) {
 			return ResponseEntity.badRequest().build();
 		}
-		
-		newCustomer = repo.save(newCustomer);
+		newRegistration = repo.save(newRegistration);
 		return ResponseEntity.ok().build();
 	}
 	
-	@DeleteMapping("/delete-customer/{customerId}")
-	public ResponseEntity<?> deleteCustomerById(@PathVariable("customerId") long id){
+	@DeleteMapping("/delete-registration/{eventId}")
+	public ResponseEntity<?> deleteRegisrationById(@PathVariable("eventId") long id){
 		repo.deleteById(id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
+	
 }
-

@@ -57,7 +57,7 @@ public class EventApi {
 		return ResponseEntity.ok().build();
 	}
 	
-	@DeleteMapping("/delete-event/{eventId}")
+	@DeleteMapping("/{eventId}")
 	public ResponseEntity<?> deleteEventById(@PathVariable("eventId") long id){
 		repo.deleteById(id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

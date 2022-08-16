@@ -58,7 +58,7 @@ public class CustomerApi {
 		return ResponseEntity.ok().build();
 	}
 	
-	@DeleteMapping("/delete-customer/{customerId}")
+	@DeleteMapping("/{customerId}")
 	public ResponseEntity<?> deleteCustomerById(@PathVariable("customerId") long id){
 		repo.deleteById(id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

@@ -57,7 +57,7 @@ public class RegistrationApi {
 		return ResponseEntity.ok().build();
 	}
 	
-	@DeleteMapping("/delete-registration/{eventId}")
+	@DeleteMapping("/{eventId}")
 	public ResponseEntity<?> deleteRegisrationById(@PathVariable("eventId") long id){
 		repo.deleteById(id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

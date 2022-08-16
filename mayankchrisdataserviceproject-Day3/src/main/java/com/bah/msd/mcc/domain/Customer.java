@@ -28,16 +28,6 @@ public class Customer {
 		// TODO Auto-generated constructor stub
 	}
 
-
-	public Customer(long id, String name, String password, String email) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.password = password;
-		this.email = email;
-	}
-
-
 	public long getId() {
 		return id;
 	}

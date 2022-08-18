@@ -2,6 +2,7 @@ package com.bah.msd.mcc.api;
 
 import java.net.URI;
 import java.util.Optional;
+import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.bah.msd.mcc.domain.Customer;
+import com.bah.msd.mcc.logging.ApiLogger;
 import com.bah.msd.mcc.repository.CustomersRepository;
 
 @RestController
@@ -56,6 +58,38 @@ public class CustomerApi {
 		
 		newCustomer = repo.save(newCustomer);
 		return ResponseEntity.ok().build();
+	}
+	
+	//lookupCustomerByName GET
+	@GetMapping("/byname/{username}")
+	public ResponseEntity<?> lookupCustomerByNameGet(@PathVariable("username") String username,
+			UriComponentsBuilder uri) {
+		ApiLogger.log("username: " + username);
+		
+		Iterator<Customer> customers = repo.findAll().iterator();
+		while(customers.hasNext()) {
+			Customer cust = customers.next();
+			if(cust.getName().equalsIgnoreCase(username)) {
+				ResponseEntity<?> response = ResponseEntity.ok(cust);
+				return response;				
+			}			
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+	}
+	
+	//lookupCustomerByName POST
+	@PostMapping("/byname")
+	public ResponseEntity<?> lookupCustomerByNamePost(@RequestBody String username, UriComponentsBuilder uri) {
+		ApiLogger.log("username: " + username);
+		Iterator<Customer> customers = repo.findAll().iterator();
+		while(customers.hasNext()) {
+			Customer cust = customers.next();
+			if(cust.getName().equals(username)) {
+				ResponseEntity<?> response = ResponseEntity.ok(cust);
+				return response;				
+			}			
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
 	
 	@DeleteMapping("/{customerId}")

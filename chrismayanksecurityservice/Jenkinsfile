@@ -1,6 +1,6 @@
 node {
 	stage('Checkout') {
-		git branch: 'main', url: '/home/osboxes/Desktop/MayankLocalRepositoryDay3'
+		git branch: 'main', url: 'https://github.com/mayank092543/MayankChrisDataServiceProjDay3.git'
 		}
 		
 		stage('Gradle build') {

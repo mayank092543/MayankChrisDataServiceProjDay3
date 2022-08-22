@@ -11,3 +11,9 @@ public class MayankchrisdataserviceprojectDay3Application {
 	}
 
 }
+/*
+ * node { stage('Checkout') { git branch: 'main', url:
+ * '/home/osboxes/git/MayankChrisDataServiceProjDay3' } stage('Gradle build') {
+ * sh 'gradle -b /home/osboxes/git/MayankChrisDataServiceProjDay3/build.gradle
+ * build' } }
+ */

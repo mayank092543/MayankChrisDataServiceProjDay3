@@ -1,8 +1,18 @@
 node {
 stage('Checkout') {
-git url: '/home/osboxes/git/MayankChrisDataServiceProjDay3/.git'
+    git branch: 'main', url: '/home/osboxes/git/MayankChrisDataServiceProjDay3'
 }
 stage('Gradle build') {
-bat 'gradle build'
+    sh 'gradle -b /home/osboxes/git/MayankChrisDataServiceProjDay3/mayankchrisdataserviceproject-Day3/build.gradle build'
 }
+stage('User Acceptance Test') {
+	def response= input message: 'Is this build good to go?',
+	parameters: [choice(choices: 'Yes\nNo',
+	description: '', name: 'Pass')]
+	if(response=="Yes") {
+		stage('Deploy') {
+			sh 'gradle -b /home/osboxes/git/MayankChrisDataServiceProjDay3/mayankchrisdataserviceproject-Day3/build.gradle build'
+			}	
+		}
+	}
 }

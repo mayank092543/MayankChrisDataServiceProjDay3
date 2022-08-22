@@ -1,0 +1,8 @@
+node {
+stage('Checkout') {
+git url: '/home/osboxes/git/MayankChrisDataServiceProjDay3/.git'
+}
+stage('Gradle build') {
+bat 'gradle build'
+}
+}

@@ -15,7 +15,7 @@ node {
 	
 	if(response=="Yes") {
 		stage('Deploy') {
-		 sh 'gradle -b mayankchrisdataserviceproject-Day3/build.gradle build -x test'
+		 sh 'gradle -b /home/osboxes/Desktop/MayankLocalRepositoryDay3/mayankchrisdataserviceproject-Day3/build.gradle build -x test'
 			}
 		}
 	}

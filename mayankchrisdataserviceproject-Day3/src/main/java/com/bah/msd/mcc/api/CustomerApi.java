@@ -62,8 +62,7 @@ public class CustomerApi {
 	
 	//lookupCustomerByName GET
 	@GetMapping("/byname/{username}")
-	public ResponseEntity<?> lookupCustomerByNameGet(@PathVariable("username") String username,
-			UriComponentsBuilder uri) {
+	public ResponseEntity<?> lookupCustomerByNameGet(@PathVariable("username") String username, UriComponentsBuilder uri) {
 		ApiLogger.log("username: " + username);
 		
 		Iterator<Customer> customers = repo.findAll().iterator();
@@ -81,6 +80,7 @@ public class CustomerApi {
 	@PostMapping("/byname")
 	public ResponseEntity<?> lookupCustomerByNamePost(@RequestBody String username, UriComponentsBuilder uri) {
 		ApiLogger.log("username: " + username);
+		
 		Iterator<Customer> customers = repo.findAll().iterator();
 		while(customers.hasNext()) {
 			Customer cust = customers.next();

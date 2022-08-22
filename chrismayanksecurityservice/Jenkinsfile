@@ -1,0 +1,22 @@
+node {
+	stage('Checkout') {
+		git url: '/home/osboxes/Desktop/MayankLocalRepositoryDay3'
+		}
+		
+		stage('Gradle build') {
+			sh 'gradle -b chrismayanksecurityservice/build.gradle clean build'
+			}
+			
+		 stage('User Acceptance Test') {
+	
+	def response= input message: 'Is this build good to go?',
+		parameters: [choice(choices: 'Yes\nNo',
+		description: '', name: 'Pass')]
+	
+	if(response=="Yes") {
+		stage('Deploy') {
+		 sh 'gradle -b chrismayanksecurityservice/build.gradle build -x test'
+			}
+		}
+	}
+	}
